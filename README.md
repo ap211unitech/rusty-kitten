@@ -1,6 +1,6 @@
 # Rusty Kennel
 
-This project is features an HTTP server written in Rust using the Actix-Web framework. It provides a booking management system for dog walkers, with endpoints for managing owners, dogs, and bookings.
+This project features an HTTP Web server written in Rust using the Actix-Web framework. It provides a booking management system for dog walkers, with endpoints for managing owners, dogs, and bookings.
 
 ## Getting Started
 
