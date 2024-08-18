@@ -137,11 +137,11 @@ impl Database {
         while let Some(result) = results.next().await {
             match result {
                 Ok(doc) => {
-                    let full_booking =
-                        from_document(doc).expect("Failed to parse FullBooking document !!");
-                    bookings.push(full_booking);
+                    let booking =
+                        from_document(doc).expect("Error converting document to FullBooking");
+                    bookings.push(booking);
                 }
-                Err(err) => panic!("Error getting bookings: {}", err),
+                Err(err) => panic!("Error getting booking: {}", err),
             }
         }
 
