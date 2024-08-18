@@ -4,6 +4,18 @@ use chrono::Utc;
 use mongodb::bson::{oid::ObjectId, DateTime};
 use serde::{Deserialize, Serialize};
 
+use super::{dog::Dog, owner::Owner};
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct FullBooking {
+    pub _id: ObjectId,
+    pub owner: Owner,
+    pub dogs: Dog,
+    pub start_time: DateTime,
+    pub duration_in_minutes: u8,
+    pub cancelled: bool,
+}
+
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Booking {
     pub _id: ObjectId,
