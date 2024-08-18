@@ -1,7 +1,7 @@
 use std::{env, time::SystemTime};
 
 use crate::models::{
-    booking::{self, Booking, FullBooking},
+    booking::{Booking, FullBooking},
     dog::Dog,
     owner::Owner,
 };
@@ -37,6 +37,17 @@ impl Database {
             dog: db.collection("dog"),
             owner: db.collection("owner"),
         }
+    }
+
+    pub async fn create_dog(&self, dog: Dog) -> Result<InsertOneResult, Error> {
+        let res: InsertOneResult = self
+            .dog
+            .insert_one(dog)
+            .await
+            .ok()
+            .expect("Failed to create Dog !!");
+
+        Ok(res)
     }
 
     pub async fn create_owner(&self, owner: Owner) -> Result<InsertOneResult, Error> {

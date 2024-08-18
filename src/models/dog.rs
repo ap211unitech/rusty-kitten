@@ -10,6 +10,7 @@ pub struct Dog {
     pub breed: Option<String>,
 }
 
+#[derive(Debug, Serialize, Deserialize)]
 pub struct DogRequest {
     pub owner: String,
     pub name: String,

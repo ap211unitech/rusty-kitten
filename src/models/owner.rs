@@ -10,6 +10,7 @@ pub struct Owner {
     pub address: String,
 }
 
+#[derive(Debug, Serialize, Deserialize)]
 pub struct OwnerRequest {
     pub name: String,
     pub email: String,

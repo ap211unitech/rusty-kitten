@@ -2,6 +2,7 @@ use actix_web::{get, web::Data, App, HttpServer, Responder};
 use services::db::Database;
 
 mod models;
+mod routes;
 mod services;
 
 #[get("/")]
