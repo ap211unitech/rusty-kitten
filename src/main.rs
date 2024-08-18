@@ -1,4 +1,9 @@
 use actix_web::{get, web::Data, App, HttpServer, Responder};
+use routes::{
+    booking::{cancel_booking, create_booking, get_bookings},
+    dog::create_dog,
+    owner::create_owner,
+};
 use services::db::Database;
 
 mod models;
@@ -16,8 +21,17 @@ async fn main() -> std::io::Result<()> {
     let db_data = Data::new(db);
 
     println!("Server started to port 8000");
-    HttpServer::new(move || App::new().app_data(db_data.clone()).service(hello))
-        .bind(("localhost", 8000))?
-        .run()
-        .await
+    HttpServer::new(move || {
+        App::new()
+            .app_data(db_data.clone())
+            .service(hello)
+            .service(create_booking)
+            .service(cancel_booking)
+            .service(get_bookings)
+            .service(create_dog)
+            .service(create_owner)
+    })
+    .bind(("localhost", 8000))?
+    .run()
+    .await
 }

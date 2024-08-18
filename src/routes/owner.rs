@@ -9,8 +9,8 @@ use crate::{
     services::db::Database,
 };
 
-#[post("/")]
-async fn create_owner(db: Data<Database>, request: Json<OwnerRequest>) -> impl Responder {
+#[post("/owner")]
+pub async fn create_owner(db: Data<Database>, request: Json<OwnerRequest>) -> impl Responder {
     match db
         .create_owner(
             Owner::try_from(request.into_inner())

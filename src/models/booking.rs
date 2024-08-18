@@ -25,6 +25,7 @@ pub struct Booking {
     pub cancelled: bool,
 }
 
+#[derive(Debug, Serialize, Deserialize)]
 pub struct BookingRequest {
     pub owner: String,
     pub start_time: String,

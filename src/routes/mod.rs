@@ -1,3 +1,3 @@
-mod booking;
-mod dog;
-mod owner;
+pub mod booking;
+pub mod dog;
+pub mod owner;

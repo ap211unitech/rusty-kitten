@@ -1,23 +1,42 @@
 use actix_web::{
-    post,
-    web::{Data, Json},
+    get, post, put,
+    web::{Data, Json, Path},
     HttpResponse, Responder,
 };
 
 use crate::{
-    models::dog::{Dog, DogRequest},
+    models::booking::{Booking, BookingRequest},
     services::db::Database,
 };
 
-#[post("/dog")]
-async fn create_dog(db: Data<Database>, request: Json<DogRequest>) -> impl Responder {
+#[post("/booking")]
+pub async fn create_booking(db: Data<Database>, request: Json<BookingRequest>) -> impl Responder {
     match db
-        .create_dog(
-            Dog::try_from(request.into_inner()).expect("Error converting DogRequest to Dog !!"),
+        .create_booking(
+            Booking::try_from(request.into_inner())
+                .expect("Error converting BookingRequest to Booking !!"),
         )
         .await
     {
-        Ok(dog) => HttpResponse::Ok().json(dog),
+        Ok(booking) => HttpResponse::Ok().json(booking),
+        Err(err) => HttpResponse::BadRequest().body(err.to_string()),
+    }
+}
+
+#[get("/booking")]
+pub async fn get_bookings(db: Data<Database>) -> impl Responder {
+    match db.get_bookings().await {
+        Ok(bookings) => HttpResponse::Ok().json(bookings),
+        Err(err) => HttpResponse::BadRequest().body(err.to_string()),
+    }
+}
+
+#[put("/booking/{id}/cancel")]
+pub async fn cancel_booking(db: Data<Database>, path: Path<(String,)>) -> impl Responder {
+    let booking_id = path.into_inner().0;
+
+    match db.cancel_booking(booking_id).await {
+        Ok(bookings) => HttpResponse::Ok().json(bookings),
         Err(err) => HttpResponse::BadRequest().body(err.to_string()),
     }
 }
